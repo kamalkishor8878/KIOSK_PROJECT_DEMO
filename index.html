@@ -75,7 +75,7 @@
   <div class="container mt-3">
     <div class="top-bar">
       <button class="exit-btn" onclick="exitApp()">
-        <img src="assets/images/exitIcon.png" width="30px" height="30px" /> Exit
+        <img src="assets/images/exitIcon.png" width="30px" height="30px" onclick="exitApp()" /> Exit
       </button>
     </div>
     <div id="catList" class="row justify-content-center"></div>
@@ -108,6 +108,13 @@
   <script>
     function goToVideos(id) {
       window.location.href = "listings.html?cat=" + id;
+    }
+    function exitApp() {
+      if (window.kioskAPI) {
+        window.kioskAPI.send("exit-app");
+      } else {
+        console.warn("kioskAPI not found");
+      }
     }
   </script>
 

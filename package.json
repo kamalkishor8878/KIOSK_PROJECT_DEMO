@@ -17,19 +17,21 @@
     "electron-builder": "^24.9.1"
   },
   "build": {
-    "appId": "com.kiosk.video.app",
-    "productName": "Kiosk Video App",
-    "directories": {
-      "output": "dist"
-    },
+    "appId": "com.kamalkishor.kiosk",
+    "productName": "E-Learning",
     "files": [
       "**/*"
     ],
-    "mac": {
-      "target": "dmg"
-    },
     "win": {
-      "target": "nsis"
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
     }
   }
 }
