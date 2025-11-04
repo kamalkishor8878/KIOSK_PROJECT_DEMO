@@ -58,7 +58,7 @@
         .video-thumb {
             width: 100%;
             height: 280px;
-            object-fit: cover;
+            object-fit: contain;
         }
 
         .video-title {
@@ -81,8 +81,8 @@
             color: white;
             border-radius: 50%;
             pointer-events: none;
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -100,7 +100,7 @@
 
         <div id="catTitle" class="category-title-bar"></div>
 
-        <div id="videosList" class="row justify-content-center"></div>
+        <div id="videosList" class="row"></div>
     </div>
 
     <script src="assets/customJs/constants.js"></script>
@@ -127,7 +127,8 @@
             <div class="video-card" onclick="playVideo('${file}', '${title}')">
                 <div class="video-thumb-box position-relative">
                     <img src="${thumbnail}" class="video-thumb" />
-                    <div class="play-icon">▶</div>
+                     <div class="play-icon">
+                     <img src="assets/images/playIcon.png" /></div>
                 </div>
                 <div class="video-title">${title}</div>
             </div>

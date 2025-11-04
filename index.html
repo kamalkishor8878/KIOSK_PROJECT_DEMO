@@ -111,9 +111,9 @@
     }
     function exitApp() {
       if (window.kioskAPI) {
-        window.kioskAPI.send("exit-app");
+        window.kioskAPI.send("app:exit");
       } else {
-        console.warn("kioskAPI not found");
+        console.warn("kioskAPI not present");
       }
     }
   </script>

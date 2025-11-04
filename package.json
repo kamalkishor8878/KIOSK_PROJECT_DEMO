@@ -19,19 +19,34 @@
   "build": {
     "appId": "com.kamalkishor.kiosk",
     "productName": "E-Learning",
+    "icon": "assets/images/appIcon.png",
+    "directories": {
+      "output": "dist"
+    },
     "files": [
-      "**/*"
+      "**/*",
+      "!dist/**/*",
+      "!node_modules/.cache/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "assets/videos",
+        "to": "assets/videos",
+        "filter": [
+          "**/*"
+        ]
+      }
     ],
     "win": {
-      "target": [
-        "nsis"
-      ]
+      "target": "nsis"
     },
     "nsis": {
       "oneClick": false,
-      "perMachine": false,
+      "perMachine": true,
       "allowElevation": true,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "shortcutName": "E-Learning",
+      "uninstallDisplayName": "E-Learning"
     }
   }
 }
