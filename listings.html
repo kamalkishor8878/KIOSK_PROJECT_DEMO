@@ -96,7 +96,7 @@
 
 <body>
     <div class="container mt-3">
-        <div onclick="goBack()" class="back-btn">⬅ Back</div>
+        <div onclick="goBack()" class="pb-4"><img src="assets/images/backIcon.png" width="50px" height="50px" /></div>
 
         <div id="catTitle" class="category-title-bar"></div>
 
@@ -120,63 +120,28 @@
 
                 const file = v.file;
                 const title = v.title;
+                const thumbnail = v.thumbnail || "assets/images/no-video.png"; // fallback image
 
                 html += `
         <div class="col-lg-4 col-md-6 col-12 mb-4">
-            <div class="video-card">
-
+            <div class="video-card" onclick="playVideo('${file}', '${title}')">
                 <div class="video-thumb-box position-relative">
-                    
-                    <video class="video-thumb" muted preload="metadata"
-                        onerror="handleVideoError(this, '${file}')"
-                        onloadedmetadata="videoLoaded(this, '${file}', '${title}')">
-                        <source src="${file}#t=1" type="video/mp4">
-                    </video>
-
-                    <!-- Play Icon -->
-                    <div class="play-icon d-none">▶</div>
-
+                    <img src="${thumbnail}" class="video-thumb" />
+                    <div class="play-icon">▶</div>
                 </div>
-
                 <div class="video-title">${title}</div>
             </div>
         </div>`;
             });
         }
-
         document.getElementById("videosList").innerHTML = html;
-        // When video loads—enable click + show play button
-        function videoLoaded(videoEl, file, title) {
-            const card = videoEl.closest(".video-card");
-            const playBtn = card.querySelector(".play-icon");
-
-            card.style.pointerEvents = "auto";
-            playBtn.classList.remove("d-none");
-            card.setAttribute("onclick", `playVideo('${file}', '${title}')`);
-        }
-
-        // When video fails—show fallback & disable click
-        function handleVideoError(videoEl) {
-            const card = videoEl.closest(".video-card");
-            const playBtn = card.querySelector(".play-icon");
-
-            // Replace video thumb with image
-            videoEl.outerHTML = `
-        <img src="assets/images/no-video.png" class="video-thumb" />
-    `;
-
-            playBtn.classList.add("d-none");
-            card.style.pointerEvents = "none";
-        }
 
         function goBack() {
             window.history.back();
         }
 
         function playVideo(file, title) {
-            window.location.href = `player.html?file=${encodeURIComponent(
-                file
-            )}&title=${encodeURIComponent(title)}`;
+            window.location.href = `player.html?file=${encodeURIComponent(file)}&title=${encodeURIComponent(title)}`;
         }
     </script>
 </body>

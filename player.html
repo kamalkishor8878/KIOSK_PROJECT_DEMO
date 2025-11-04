@@ -67,12 +67,14 @@
 <body onclick="showControlsAgain()">
     <!-- Header -->
     <div id="headerBar" class="player-header">
-        <div class="back-btn" onclick="goBack()">⬅</div>
+        <div onclick="goBack()"><img src="assets/images/backIcon.png" class="d-block" width="40px" height="40px" />
+        </div>
         <div id="videoTitle"></div>
     </div>
-   
+
     <!-- Video Player -->
-    <video id="videoPlayer" controls autoplay></video>
+    <video id="videoPlayer" controls autoplay disablepictureinpicture
+        controlslist="nodownload noremoteplayback noplaybackrate nopicinpic"></video>
 
     <script>
         // Read URL params
