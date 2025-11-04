@@ -1,0 +1,68 @@
+# Node dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs/
+*.log
+
+# Environment files
+.env
+.env.*.local
+
+# Electron build outputs
+/dist
+/build
+/out
+release/
+**/*.asar
+
+# Electron-packager / electron-builder cache
+electron-builder.yml
+.builder-debug.yml
+.builder-cache/
+electron-builder-cache/
+__pycache__/
+
+# Installer output
+*.exe
+*.dmg
+*.AppImage
+*.deb
+*.rpm
+*.snap
+*.msi
+*.zip
+*.tar.gz
+
+# Mac system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code settings
+.vscode/
+.history/
+.idea/
+
+# TypeScript build (if used)
+dist/
+out/
+*.tsbuildinfo
+
+# Optional cache files
+.cache/
+tmp/
+temp/
+*.swp
+*.swo
+*.tmp

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Videos</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+
+    <style>
+        body {
+            background-color: #005e88;
+            padding: 10px;
+        }
+
+        .back-btn {
+            cursor: pointer;
+            font-size: 28px;
+            background: #004d6b;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .category-title-bar {
+            background: #004d6b;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            border: 3px solid #002f3f;
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .video-card:hover {
+            transform: scale(1.03);
+        }
+
+        .video-thumb-box {
+            position: relative;
+            border: 2px solid black;
+            background: white;
+            padding: 4px;
+            cursor: pointer;
+        }
+
+        .video-thumb {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .video-title {
+            background: #004d6b;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            min-height: 60px;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 60px;
+            background: rgba(0, 0, 0, 0.45);
+            color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .d-none {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-3">
+        <div onclick="goBack()" class="back-btn">⬅ Back</div>
+
+        <div id="catTitle" class="category-title-bar"></div>
+
+        <div id="videosList" class="row justify-content-center"></div>
+    </div>
+
+    <script src="assets/customJs/constants.js"></script>
+    <script>
+        // Get category id from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const catId = urlParams.get("cat");
+
+        // Show category title
+        const currentCat = categories.find((c) => c.id === catId);
+        document.getElementById("catTitle").innerText = currentCat.subHeading;
+
+        // Load videos
+        let html = "";
+        if (videosData[catId]) {
+            videosData[catId].forEach((v) => {
+
+                const file = v.file;
+                const title = v.title;
+
+                html += `
+        <div class="col-lg-4 col-md-6 col-12 mb-4">
+            <div class="video-card">
+
+                <div class="video-thumb-box position-relative">
+                    
+                    <video class="video-thumb" muted preload="metadata"
+                        onerror="handleVideoError(this, '${file}')"
+                        onloadedmetadata="videoLoaded(this, '${file}', '${title}')">
+                        <source src="${file}#t=1" type="video/mp4">
+                    </video>
+
+                    <!-- Play Icon -->
+                    <div class="play-icon d-none">▶</div>
+
+                </div>
+
+                <div class="video-title">${title}</div>
+            </div>
+        </div>`;
+            });
+        }
+
+        document.getElementById("videosList").innerHTML = html;
+        // When video loads—enable click + show play button
+        function videoLoaded(videoEl, file, title) {
+            const card = videoEl.closest(".video-card");
+            const playBtn = card.querySelector(".play-icon");
+
+            card.style.pointerEvents = "auto";
+            playBtn.classList.remove("d-none");
+            card.setAttribute("onclick", `playVideo('${file}', '${title}')`);
+        }
+
+        // When video fails—show fallback & disable click
+        function handleVideoError(videoEl) {
+            const card = videoEl.closest(".video-card");
+            const playBtn = card.querySelector(".play-icon");
+
+            // Replace video thumb with image
+            videoEl.outerHTML = `
+        <img src="assets/images/no-video.png" class="video-thumb" />
+    `;
+
+            playBtn.classList.add("d-none");
+            card.style.pointerEvents = "none";
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function playVideo(file, title) {
+            window.location.href = `player.html?file=${encodeURIComponent(
+                file
+            )}&title=${encodeURIComponent(title)}`;
+        }
+    </script>
+</body>
+
+</html>
